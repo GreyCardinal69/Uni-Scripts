@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using System.Collections.Generic;
 
 namespace Uni_Scripts.Պտույտների_Ներկումներ
 {

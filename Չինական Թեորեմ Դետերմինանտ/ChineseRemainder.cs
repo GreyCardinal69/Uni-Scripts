@@ -1,4 +1,6 @@
-﻿namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
+﻿using System;
+
+namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
 {
     internal class ChineseRemainder
     {
