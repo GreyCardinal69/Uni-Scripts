@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
+﻿namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
 {
     internal class ChineseRemainder
     {

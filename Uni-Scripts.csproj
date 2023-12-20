@@ -9,7 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Պտույտների Ներկումներ\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
   </ItemGroup>
 
 </Project>
