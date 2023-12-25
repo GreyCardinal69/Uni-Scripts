@@ -14,8 +14,8 @@ namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
             int[] matrix = new int[]
             {
                 865, 204, 684,
-                288,  68, 228,
-                1224, 289, 970
+                576,  136, 456,
+                864, 204, 685
             };
 
             Console.WriteLine( "Original Matrix:" );
@@ -28,7 +28,7 @@ namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
             //          Օրինակ՝ 0 < d < 137
             //
             //
-            int range = 100;
+            int range = 140;
 
             // ==================================================
             //
@@ -60,137 +60,31 @@ namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
             int[] remNum1Matrix;
             int lower = 0;
 
-            while ( true )
+            remNum1Matrix = new int[]
             {
-                remNum1Matrix = new int[]
-                {
                     LowerX( matrix[0] % num1, num1, 7), LowerX( matrix[1] % num1, num1, 7), LowerX( matrix[2] % num1, num1, 7),
                     LowerX( matrix[3] % num1, num1, 7), LowerX( matrix[4] % num1, num1, 7), LowerX( matrix[5] % num1, num1, 7),
                     LowerX( matrix[6] % num1, num1, 7), LowerX( matrix[7] % num1, num1, 7), LowerX( matrix[8] % num1, num1, 7)
-                };
-                if ( GetDeterminant( remNum1Matrix ) > 0 )
-                {
-                    lower = 7;
-                    break;
-                }
-                remNum1Matrix = new int[]
-                {
-                    LowerX( matrix[0] % num1, num1, 6), LowerX( matrix[1] % num1, num1, 6), LowerX( matrix[2] % num1, num1, 6),
-                    LowerX( matrix[3] % num1, num1, 6), LowerX( matrix[4] % num1, num1, 6), LowerX( matrix[5] % num1, num1, 6),
-                    LowerX( matrix[6] % num1, num1, 6), LowerX( matrix[7] % num1, num1, 6), LowerX( matrix[8] % num1, num1, 6)
-                };
-                if ( GetDeterminant( remNum1Matrix ) > 0 )
-                {
-                    lower = 6;
-                    break;
-                }
-                remNum1Matrix = new int[]
-                {
-                    LowerX( matrix[0] % num1, num1, 5), LowerX( matrix[1] % num1, num1, 5), LowerX( matrix[2] % num1, num1, 5),
-                    LowerX( matrix[3] % num1, num1, 5), LowerX( matrix[4] % num1, num1, 5), LowerX( matrix[5] % num1, num1, 5),
-                    LowerX( matrix[6] % num1, num1, 5), LowerX( matrix[7] % num1, num1, 5), LowerX( matrix[8] % num1, num1, 5)
-                };
-                if ( GetDeterminant( remNum1Matrix ) > 0 )
-                {
-                    lower = 5;
-                    break;
-                }
-                remNum1Matrix = new int[]
-                {
-                    LowerX( matrix[0] % num1, num1, 8), LowerX( matrix[1] % num1, num1, 8), LowerX( matrix[2] % num1, num1, 8),
-                    LowerX( matrix[3] % num1, num1, 8), LowerX( matrix[4] % num1, num1, 8), LowerX( matrix[5] % num1, num1, 8),
-                    LowerX( matrix[6] % num1, num1, 8), LowerX( matrix[7] % num1, num1, 8), LowerX( matrix[8] % num1, num1, 8)
-                };
-                if ( GetDeterminant( remNum1Matrix ) > 0 )
-                {
-                    lower = 8;
-                    break;
-                }
-                remNum1Matrix = new int[]
-                {
-                    LowerX( matrix[0] % num1, num1, 4), LowerX( matrix[1] % num1, num1, 4), LowerX( matrix[2] % num1, num1, 4),
-                    LowerX( matrix[3] % num1, num1, 4), LowerX( matrix[4] % num1, num1, 4), LowerX( matrix[5] % num1, num1, 4),
-                    LowerX( matrix[6] % num1, num1, 4), LowerX( matrix[7] % num1, num1, 4), LowerX( matrix[8] % num1, num1, 4)
-                };
-                if ( GetDeterminant( remNum1Matrix ) > 0 )
-                {
-                    lower = 4;
-                    break;
-                }
-            }
+            };
 
             PrintMatrix( remNum1Matrix );
             rem1 = GetDeterminant( remNum1Matrix );
             Console.WriteLine( $"=> {rem1} => {rem1 % num1} mod{num1}" );
-            Console.WriteLine( $"If the remainder is bigger than {lower} than we write its - variant." );
             Console.WriteLine();
 
             lower = 0;
             int[] remNum2Matrix;
 
-            while ( true )
+            remNum2Matrix = new int[]
             {
-                remNum2Matrix = new int[]
-                {
                     LowerX( matrix[0] % num2, num2, 7), LowerX( matrix[1] % num2, num2, 7), LowerX( matrix[2] % num2, num2, 7),
                     LowerX( matrix[3] % num2, num2, 7), LowerX( matrix[4] % num2, num2, 7), LowerX( matrix[5] % num2, num2, 7),
                     LowerX( matrix[6] % num2, num2, 7), LowerX( matrix[7] % num2, num2, 7), LowerX( matrix[8] % num2, num2, 7)
-                };
-                if ( GetDeterminant( remNum2Matrix ) > 0 )
-                {
-                    lower = 7;
-                    break;
-                }
-                remNum2Matrix = new int[]
-                {
-                    LowerX( matrix[0] % num2, num2, 6), LowerX( matrix[1] % num2, num2, 6), LowerX( matrix[2] % num2, num2, 6),
-                    LowerX( matrix[3] % num2, num2, 6), LowerX( matrix[4] % num2, num2, 6), LowerX( matrix[5] % num2, num2, 6),
-                    LowerX( matrix[6] % num2, num2, 6), LowerX( matrix[7] % num2, num2, 6), LowerX( matrix[8] % num2, num2, 6)
-                };
-                if ( GetDeterminant( remNum2Matrix ) > 0 )
-                {
-                    lower = 6;
-                    break;
-                }
-                remNum2Matrix = new int[]
-                {
-                    LowerX( matrix[0] % num2, num2, 5), LowerX( matrix[1] % num2, num2, 5), LowerX( matrix[2] % num2, num2, 5),
-                    LowerX( matrix[3] % num2, num2, 5), LowerX( matrix[4] % num2, num2, 5), LowerX( matrix[5] % num2, num2, 5),
-                    LowerX( matrix[6] % num2, num2, 5), LowerX( matrix[7] % num2, num2, 5), LowerX( matrix[8] % num2, num2, 5)
-                };
-                if ( GetDeterminant( remNum2Matrix ) > 0 )
-                {
-                    lower = 5;
-                    break;
-                }
-                remNum2Matrix = new int[]
-                {
-                    LowerX( matrix[0] % num2, num2, 8), LowerX( matrix[1] % num2, num2, 8), LowerX( matrix[2] % num2, num2, 8),
-                    LowerX( matrix[3] % num2, num2, 8), LowerX( matrix[4] % num2, num2, 8), LowerX( matrix[5] % num2, num2, 8),
-                    LowerX( matrix[6] % num2, num2, 8), LowerX( matrix[7] % num2, num2, 8), LowerX( matrix[8] % num2, num2, 8)
-                };
-                if ( GetDeterminant( remNum2Matrix ) > 0 )
-                {
-                    lower = 8;
-                    break;
-                }
-                remNum2Matrix = new int[]
-                {
-                    LowerX( matrix[0] % num2, num2, 4), LowerX( matrix[1] % num2, num2, 4), LowerX( matrix[2] % num2, num2, 4),
-                    LowerX( matrix[3] % num2, num2, 4), LowerX( matrix[4] % num2, num2, 4), LowerX( matrix[5] % num2, num2, 4),
-                    LowerX( matrix[6] % num2, num2, 4), LowerX( matrix[7] % num2, num2, 4), LowerX( matrix[8] % num2, num2, 4)
-                };
-                if ( GetDeterminant( remNum2Matrix ) > 0 )
-                {
-                    lower = 4;
-                    break;
-                }
-            }
+            };
 
             PrintMatrix( remNum2Matrix );
             rem2 = GetDeterminant( remNum2Matrix );
             Console.WriteLine( $"=> {rem2} => {rem2 % num2} mod{num2}" );
-            Console.WriteLine( $"If the remainder is bigger than {lower} than we write its - variant." );
 
             Console.WriteLine();
 
@@ -200,9 +94,15 @@ namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
             Console.WriteLine( $"{num2} = 1*{num1}+1" );
             Console.WriteLine( $"1 = {num2}-{num1}" );
             Console.WriteLine();
-            Console.WriteLine( $"d = {rem1 % num1}*{num2}-{rem2 % num2}*{num1} = {( ( rem1 % num1 ) * num2 ) - ( ( rem2 % num2 ) * num1 )}" );
-            var final = ( ( rem1 % num1 ) * num2 ) - ( ( rem2 % num2 ) * num1 );
+            int final = ( ( rem1 % num1 ) * num2 ) - ( ( rem2 % num2 ) * num1 );
+            Console.WriteLine( $"d = {rem1 % num1}*{num2}-{rem2 % num2}*{num1} => {(( rem1 % num1 ) * num2 )} - {( ( rem2 % num2 ) * num1 )} = {final}" );
             Console.WriteLine();
+
+            if ( final < 0 )
+            {
+                Console.WriteLine($"{final} + {num1}*{num2} => {final + (num1*num2)}");
+            }
+
             Console.WriteLine( "Proof:" );
             Console.WriteLine( $"{num1}*{num2}={num1 * num2}" );
             Console.WriteLine( $"{num1 * num2}-{Math.Abs( final )} = {( num1 * num2 ) - Math.Abs( final )}" );
@@ -226,7 +126,7 @@ namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
             }
         }
 
-        static int LowerX( int a, int num, int c ) => a > c ? a - num : a;
+        static int LowerX( int a, int num, int c ) => a >= c ? a - num : a;
 
         static int GetDeterminant( int[] matrix )
         {
