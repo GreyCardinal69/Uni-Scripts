@@ -19,7 +19,7 @@ namespace Uni_Scripts.Պտույտների_Ներկումներ
             //      XoranardKox
             //      XoranardNist
 
-            Type type = Type.QaranistGagat;
+            Type type = Type.XoranardKox;
 
             // x^n*y^m*z^p
             // ==================================================
@@ -32,7 +32,7 @@ namespace Uni_Scripts.Պտույտների_Ներկումներ
             //          y-ի 3 պտույտ։
             //          z-ի 3 պտույտ։
             //
-            string target = "x^6*y^3*z^3";
+            string target = "x^2*y^4*z^6";
 
             // ==================================================
             //
@@ -41,7 +41,6 @@ namespace Uni_Scripts.Պտույտների_Ներկումներ
 
             string[] split = target.Split( '*' );
             int targExpo1 = split[0][2] - '0', targExpo2 = split[1][2] - '0', targExpo3 = split[2][2] - '0';
-
             Console.WriteLine( $"Target: x^{targExpo1}y^{targExpo2}z^{targExpo3}\n" );
 
             StringBuilder result = new StringBuilder();
@@ -227,7 +226,7 @@ namespace Uni_Scripts.Պտույտների_Ներկումներ
                         set.SecondSet.InnerExpo > targExpo1 ) && ( set.SecondSet.InnerExpo > targExpo2 || set.SecondSet.InnerExpo > targExpo3 ||
                         !CanBeAchieved( targExpo1, set.SecondSet.InnerExpo ) ||
                         !CanBeAchieved( targExpo2, set.SecondSet.InnerExpo ) ||
-                        !CanBeAchieved( targExpo3, set.SecondSet.InnerExpo ) ) 
+                        !CanBeAchieved( targExpo3, set.SecondSet.InnerExpo ) )
                     )
                     {
                         result.Append( $"{set.Mult}*0" );
@@ -253,71 +252,61 @@ namespace Uni_Scripts.Պտույտների_Ներկումներ
 
                     while ( n != targExpo1 )
                     {
-                        if ( targExpo1 % set.SecondSet.InnerExpo == 0 )
+                        int a = iter;
+                        int b = iter2;
+
+                        FindExponents( new int[] { set.Expo, set.InnerExpo }, new int[] { set.SecondSet.Expo, set.SecondSet.InnerExpo }, targExpo1, ref iter, ref iter2 );
+
+                        if ( a != iter || b != iter2 )
                         {
-                            n = targExpo1;
-                            iter2 += targExpo1 / set.SecondSet.InnerExpo;
                             break;
                         }
-                        if ( n < targExpo1 && total != 0 && ( n + set.InnerExpo + set.SecondSet.InnerExpo <= targExpo1 ) )
-                        {
-                            n += set.InnerExpo;
-                            iter++;
-                        }
-                        if ( n < targExpo1 && total2 != 0 && ( n + set.SecondSet.InnerExpo <= targExpo1 ) )
-                        {
-                            n += set.SecondSet.InnerExpo;
-                            iter2++;
-                        }
-                    }
-                    if ( iter != 0 )
-                    {
-                        if ( total < iter )
-                        {
-                            result.Append( " * 0" );
-
-                        }
                         else
                         {
-                            result.Append( " * " );
-                            result.Append( $"C-{total}/{iter}" );
+                            iter = a;
+                            iter2 = b;
                         }
+                        brake++;
+                        if ( brake > 15 )
+                        {
 
+                            result.Append( "* 0" );
+                            break;
+                        }
                     }
-                    if ( iter2 != 0 )
+
+                    if ( iter != 0 && total != 0 && total >= iter )
                     {
-                        if ( total2 < iter2 )
-                        {
-                            result.Append( " * 0" );
-
-                        }
-                        else
-                        {
-                            result.Append( " * " );
-                            result.Append( $"C-{total2}/{iter2}" );
-                        }
+                        result.Append( " * " );
+                        result.Append( $"C-{total}/{iter}" );
+                        total -= iter;
                     }
-                    total -= iter;
-                    total2 -= iter2;
+                    if ( iter2 != 0 && total2 != 0 && total2 >= iter2 )
+                    {
+                        result.Append( "* " );
+                        result.Append( $"C-{total2}/{iter2}" );
+                        total2 -= iter2;
+                    }
+
+               
 
                     n = 0; n2 = 0; iter = 0; iter2 = 0;
+
                     while ( n != targExpo2 )
                     {
-                        if ( targExpo2 % set.SecondSet.InnerExpo == 0 )
+                        int a = iter;
+                        int b = iter2;
+
+                        FindExponents( new int[] { set.SecondSet.Expo, set.SecondSet.InnerExpo }, new int[] { set.Expo, set.InnerExpo }, targExpo2, ref iter, ref iter2 );
+
+                        if ( a != iter || b != iter2 )
                         {
-                            n = targExpo2;
-                            iter2 += targExpo2 / set.SecondSet.InnerExpo;
                             break;
                         }
-                        if ( n < targExpo2 && total != 0 && ( n + set.InnerExpo + set.SecondSet.InnerExpo <= targExpo2 ) )
+                        else
                         {
-                            n += set.InnerExpo;
-                            iter++;
-                        }
-                        if ( n < targExpo2 && total2 != 0 && ( n + set.SecondSet.InnerExpo <= targExpo2 ) )
-                        {
-                            n += set.SecondSet.InnerExpo;
-                            iter2++;
+                            iter = a;
+                            iter2 = b;
                         }
                         brake++;
                         if ( brake > 15 )
@@ -327,54 +316,39 @@ namespace Uni_Scripts.Պտույտների_Ներկումներ
                             break;
                         }
                     }
-                    brake = 0;
-                    if ( iter != 0 )
-                    {
-                        if ( total < iter )
-                        {
-                            result.Append( " * 0" );
 
-                        }
-                        else
-                        {
-                            result.Append( " * " );
-                            result.Append( $"C-{total}/{iter}" );
-                        }
-                    }
-                    if ( iter2 != 0 )
+                    if ( iter != 0 && total != 0 && total >= iter )
                     {
-                        if ( total2 < iter2 )
-                        {
-                            result.Append( " * 0" );
-
-                        }
-                        else
-                        {
-                            result.Append( " * " );
-                            result.Append( $"C-{total2}/{iter2}" );
-                        }
+                        result.Append( " * " );
+                        result.Append( $"C-{total}/{iter}" );
+                        total -= iter;
                     }
-                    total -= iter;
-                    total2 -= iter2;
+                    if ( iter2 != 0 && total2 != 0 && total2 >= iter2 )
+                    {
+                        result.Append( "* " );
+                        result.Append( $"C-{total2}/{iter2}" );
+                        total2 -= iter2;
+                    }
+
+                  
 
                     n = 0; n2 = 0; iter = 0; iter2 = 0;
+
                     while ( n != targExpo3 )
                     {
-                        if ( targExpo3 % set.SecondSet.InnerExpo == 0 )
+                        int a = iter;
+                        int b = iter2;
+
+                        FindExponents( new int[] { set.SecondSet.Expo, set.SecondSet.InnerExpo }, new int[] { set.Expo, set.InnerExpo }, targExpo3, ref iter, ref iter2 );
+
+                        if ( a != iter || b != iter2 )
                         {
-                            n = targExpo3;
-                            iter2 += targExpo3 / set.SecondSet.InnerExpo;
                             break;
                         }
-                        if ( n < targExpo3 && total != 0 )
+                        else
                         {
-                            n += set.InnerExpo;
-                            iter++;
-                        }
-                        if ( n < targExpo3 && total2 != 0 && ( n + set.SecondSet.InnerExpo <= targExpo3 ) )
-                        {
-                            n += set.SecondSet.InnerExpo;
-                            iter2++;
+                            iter = a;
+                            iter2 = b;
                         }
                         brake++;
                         if ( brake > 15 )
@@ -384,37 +358,24 @@ namespace Uni_Scripts.Պտույտների_Ներկումներ
                             break;
                         }
                     }
-                    brake = 0;
-                    if ( iter != 0 && total != 0 )
-                    {
-                        if ( total < iter )
-                        {
-                            result.Append( " * 0" );
 
-                        }
-                        else
-                        {
-                            result.Append( " * " );
-                            result.Append( $"C-{total}/{iter}" );
-                        }
-                    }
-                    if ( iter2 != 0 && total2 != 0 )
+                    if ( iter != 0 && total != 0 && total >= iter )
                     {
-                        if ( total2 < iter2 )
-                        {
-                            result.Append( " * 0" );
-
-                        }
-                        else
-                        {
-                            result.Append( "* " );
-                            result.Append( $"C-{total2}/{iter2}" );
-                        }
+                        result.Append( " * " );
+                        result.Append( $"C-{total}/{iter}" );
+                        total -= iter;
                     }
-                    total -= iter;
-                    total2 -= iter2;
+                    if ( iter2 != 0 && total2 != 0 && total2 >= iter2 )
+                    {
+                        result.Append( "* " );
+                        result.Append( $"C-{total2}/{iter2}" );
+                        total2 -= iter2;
+                    }
+
+                    n = 0; n2 = 0; iter = 0; iter2 = 0;
 
                     if ( targExpo1 == targExpo2 && targExpo2 == targExpo3 ) result.Append( "*3" );
+
                 }
 
                 if ( i < CyclicFormulas[type].Length - 1 )
@@ -452,6 +413,29 @@ namespace Uni_Scripts.Պտույտների_Ներկումներ
             return n * Factorial( n - 1 );
         }
 
+        static void FindExponents( int[] set1, int[] set2, int target, ref int iter, ref int iter2 )
+        {
+            bool exit = false;
+            for ( int expo1 = 0; expo1 <= set1[0]; expo1++ )
+            {
+                for ( int expo2 = 0; expo2 <= set2[0]; expo2++ )
+                {
+                    int sum = expo1 * set1[1] + expo2 * set2[1];
+                    int remainingExpos = set1[0] - expo1 + set2[0] - expo2;
+
+                    if ( sum == target && remainingExpos >= 0 )
+                    {
+                        iter = expo1;
+                        iter2 = expo2;
+                        Console.WriteLine( $"Expo from Polynomial 1: {iter}, Expo from Polynomial 2: {iter2}" );
+                        exit = true;
+                        break;
+                    }
+                }
+                if ( exit ) break;
+            }
+        }
+
         public enum Type
         {
             XoranardGagat,
@@ -484,10 +468,12 @@ namespace Uni_Scripts.Պտույտների_Ներկումներ
 
                     Type.XoranardKox, new Set[] {
                         new Set() { Mult = 1, Expo = 12, InnerExpo = 1, SecondSet = null },
-                        new Set() { Mult = 3, Expo = 6, InnerExpo = 2, SecondSet = null },
                         new Set() { Mult = 6, Expo = 3, InnerExpo = 4, SecondSet = null },
-                        new Set() { Mult = 6, Expo = 2, InnerExpo = 1, SecondSet = new Set() { Mult = 1, InnerExpo = 2, Expo = 5, SecondSet = null } },
+                        new Set() { Mult = 3, Expo = 6, InnerExpo = 2, SecondSet = null },
                         new Set() { Mult = 8, Expo = 4, InnerExpo = 3, SecondSet = null },
+                        new Set() { Mult = 6, Expo = 2, InnerExpo = 1, SecondSet = new Set()
+{ Mult = 1, InnerExpo = 2, Expo = 5, SecondSet = null } },
+
                     }
                 },
                 {

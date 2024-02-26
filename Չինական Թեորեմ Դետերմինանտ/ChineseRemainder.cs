@@ -13,9 +13,9 @@ namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
             //
             int[] matrix = new int[]
             {
-                865, 204, 684,
-                576,  136, 456,
-                864, 204, 685
+                793, 187, 627,
+                360,  85, 285,
+                792, 187, 628
             };
 
             Console.WriteLine( "Original Matrix:" );
@@ -69,6 +69,11 @@ namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
 
             PrintMatrix( remNum1Matrix );
             rem1 = GetDeterminant( remNum1Matrix );
+            Console.WriteLine(rem1);
+            if ( rem1 < 0 )
+            {
+                while ( rem1 < 0 ) rem1 = rem1 + num1;
+            }
             Console.WriteLine( $"=> {rem1} => {rem1 % num1} mod{num1}" );
             Console.WriteLine();
 
@@ -84,6 +89,11 @@ namespace Uni_Scripts.Չինական_Թեորեմ_Դետերմինանտ
 
             PrintMatrix( remNum2Matrix );
             rem2 = GetDeterminant( remNum2Matrix );
+            Console.WriteLine( rem2 );
+            if ( rem2 < 0 )
+            {
+                while ( rem2 < 0 ) rem2 = rem2 + num2;
+            }
             Console.WriteLine( $"=> {rem2} => {rem2 % num2} mod{num2}" );
 
             Console.WriteLine();

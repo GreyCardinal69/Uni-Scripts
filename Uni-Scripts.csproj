@@ -9,11 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Պտույտների Ներկումներ\RotationPaints.cs" />
+    <Compile Remove="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Պտույտների Ներկումներ\RotationPaints.cs" />
+    <None Include="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
   </ItemGroup>
 
 </Project>
