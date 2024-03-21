@@ -9,13 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Smith Normal Form\SmithNormalForm.cs" />
     <Compile Remove="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
     <Compile Remove="Պտույտների Ներկումներ\RotationPaints.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Smith Normal Form\SmithNormalForm.cs" />
     <None Include="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
     <None Include="Պտույտների Ներկումներ\RotationPaints.cs" />
   </ItemGroup>
+
 
 </Project>
