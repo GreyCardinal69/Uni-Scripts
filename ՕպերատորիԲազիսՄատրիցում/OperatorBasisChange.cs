@@ -1,33 +1,187 @@
-﻿namespace Uni_Scripts.Մատրիցի_Հակադարձ_Գաուսի
+﻿using System;
+
+namespace Uni_Scripts.ՕպերատորիԲազիսՄատրիցում
 {
-    internal class MatrixInverseGaussian
+    internal class OperatorBasisChange
     {
-        static void Main() =>
-            GetMatrixInverseGaussian( new double[,]
-                /*
-                 * 
-                 *  Լրացնել NxN չափանի մատրիցը
-                 *  Ապա սկսել ծրագիրը
-                 *      | |
-                 *      | |
-                 *      | |
-                 *     \\ //
-                 *      \ /
-                 *       |              */
-                {
-                    { 1, 0, 4, -4, 0, 0 },
-                    { 0, 1, -5, 4, 0, 0 },
-                    { 0, 0, 1, 0, 4, -1 },
-                    { 0, 0, 0, 1, 3, -1 },
-                    { 0, 0, 0, 0, 1, 0  },
-                    { 0, 0, 0, 0, 0, 1  }
-                }
-            );
-
-        private static string[] _lastIdentities;
-
-        private static void GetMatrixInverseGaussian( double[,] matrix )
+        static void Main( string[] args )
         {
+            /*
+             * Օրինակ
+             *  Գծային օպերատորի մատրիցը e1,e2,e3 բազիսում ունի հետևյալ տեսքը։
+             *  
+             *      | |
+             *      | |
+             *      | |
+             *     \\ //
+             *      \ /
+             *       |              */
+            double[,] A = {
+                { -1, 1, 3 },
+                { 4, -2, -1 },
+                { -2, 3, 4 }
+            };
+
+            /*
+             * Օրինակ
+             * Որոշել օպերատորի մատրիցը e1, -e1 + e2, -e3 բազիսում
+             *  // Լրացնել մատրիցը վերևում տրված բազիսից ներքևում գրվածի նման․
+             *  
+             *  e1 = { 1,0,0 }
+             *  -e1 + e2 = { -1, 1, 0 }
+             *  -e3 = { 0,0, -1 }
+             *      | |
+             *      | |
+             *      | |
+             *     \\ //
+             *      \ /
+             *       |              */
+            double[,] T =
+            {
+                { 1,0,0 },
+                { -1,1,0 },
+                { 0,0,-1}
+            };
+
+            //
+            //
+            //         Սկսել Ծրագիրը
+            //
+            //
+
+            ChangeOperatorBasis( A, T );
+        }
+
+        private static void ChangeOperatorBasis( double[,] A, double[,] T )
+        {
+            Console.WriteLine( "A=" );
+            PrintMatrix( A );
+            Console.WriteLine();
+
+            Console.WriteLine( "T=" );
+            PrintMatrix( T );
+            Console.WriteLine();
+
+            GuassianEngine.GetMatrixInverseGaussian( T, 'T' );
+            double[,] inverseT = GuassianEngine.Result;
+
+            Console.WriteLine( "T*A*T^-1 = " );
+            PrintMatrices( T, A, inverseT );
+            Console.WriteLine();
+
+            double[,]? TA = MultiplyMatrices( T, A );
+
+            PrintMatrices( TA, inverseT );
+            Console.WriteLine();
+
+            var TAiT = MultiplyMatrices( TA, inverseT );
+
+            PrintMatrix( TAiT );
+        }
+
+        private static void PrintMatrices( double[,] matrix1, double[,] matrix2, double[,] matrix3 )
+        {
+            int rows = matrix1.GetLength( 0 );
+            int cols = matrix1.GetLength( 1 );
+
+            for ( int i = 0; i < rows; i++ )
+            {
+                for ( int j = 0; j < cols; j++ )
+                {
+                    Console.Write( matrix1[i, j] + "\t" );
+                }
+                Console.Write( "\t" );
+
+                for ( int j = 0; j < cols; j++ )
+                {
+                    Console.Write( matrix2[i, j] + "\t" );
+                }
+                Console.Write( "\t" );
+
+                for ( int j = 0; j < cols; j++ )
+                {
+                    Console.Write( matrix3[i, j] + "\t" );
+                }
+                Console.WriteLine();
+            }
+        }
+        private static void PrintMatrices( double[,] matrix1, double[,] matrix2 )
+        {
+            int rows = matrix1.GetLength( 0 );
+            int cols = matrix1.GetLength( 1 );
+
+            for ( int i = 0; i < rows; i++ )
+            {
+                for ( int j = 0; j < cols; j++ )
+                {
+                    Console.Write( matrix1[i, j] + "\t" );
+                }
+                Console.Write( "\t" );
+
+                for ( int j = 0; j < cols; j++ )
+                {
+                    Console.Write( matrix2[i, j] + "\t" );
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private static double[,] MultiplyMatrices( double[,] matrix1, double[,] matrix2 )
+        {
+            int rows1 = matrix1.GetLength( 0 );
+            int cols1 = matrix1.GetLength( 1 );
+            int rows2 = matrix2.GetLength( 0 );
+            int cols2 = matrix2.GetLength( 1 );
+
+            if ( cols1 != rows2 )
+            {
+                throw new ArgumentException( "Number of columns of the first matrix must be equal to the number of rows of the second matrix." );
+            }
+
+            double[,] result = new double[rows1, cols2];
+
+            for ( int i = 0; i < rows1; i++ )
+            {
+                for ( int j = 0; j < cols2; j++ )
+                {
+                    double sum = 0;
+                    for ( int k = 0; k < cols1; k++ )
+                    {
+                        sum += matrix1[i, k] * matrix2[k, j];
+                    }
+                    result[i, j] = sum;
+                }
+            }
+
+            return result;
+        }
+
+        private static void PrintMatrix( double[,] matrix )
+        {
+            int rows = matrix.GetLength( 0 );
+            int cols = matrix.GetLength( 1 );
+
+            for ( int i = 0; i < rows; i++ )
+            {
+                for ( int j = 0; j < cols; j++ )
+                {
+                    Console.Write( matrix[i, j] + "\t" );
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+
+    public class GuassianEngine
+    {
+        private static string[] _lastIdentities;
+        private static char _matr;
+
+        public static double[,] Result;
+
+        public static void GetMatrixInverseGaussian( double[,] matrix, char matr )
+        {
+            _matr = matr;
             int n = matrix.GetLength( 0 );
 
             double[,] augmentedMatrix = new double[n, 2 * n];
@@ -97,7 +251,9 @@
                 Console.WriteLine( $"X{i + 1} = {_lastIdentities[i]}" );
             }
 
-            Console.WriteLine( "\nA^-1 = \n" );
+            Console.WriteLine( $"\n{_matr}^-1 = \n" );
+
+            Result = inverseMatrix;
 
             for ( int i = 0; i < n; i++ )
             {
