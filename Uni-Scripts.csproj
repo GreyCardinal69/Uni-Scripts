@@ -13,6 +13,7 @@
     <Compile Remove="Մատրիցի Հակադարձ Գաուսի\MatrixInverseGaussian.cs" />
     <Compile Remove="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
     <Compile Remove="Պտույտների Ներկումներ\RotationPaints.cs" />
+    <Compile Remove="ՕպերատորիԲազիսՄատրիցում\OperatorBasisChange.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +21,7 @@
     <None Include="Մատրիցի Հակադարձ Գաուսի\MatrixInverseGaussian.cs" />
     <None Include="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
     <None Include="Պտույտների Ներկումներ\RotationPaints.cs" />
+    <None Include="ՕպերատորիԲազիսՄատրիցում\OperatorBasisChange.cs" />
   </ItemGroup>
 
 
