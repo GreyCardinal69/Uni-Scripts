@@ -14,6 +14,15 @@
     <Compile Remove="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
     <Compile Remove="Պտույտների Ներկումներ\RotationPaints.cs" />
     <Compile Remove="ՕպերատորիԲազիսՄատրիցում\OperatorBasisChange.cs" />
+    <Compile Remove="Օրթոնորմավորել Բազիսը\BasisNormalize.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Ժորդանյան Նորմալ Դեֆեկտներով\JordanDefects.py" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Ժորդանյան Նորմալ Դեֆեկտներով\JordanDefects.py" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +31,7 @@
     <None Include="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
     <None Include="Պտույտների Ներկումներ\RotationPaints.cs" />
     <None Include="ՕպերատորիԲազիսՄատրիցում\OperatorBasisChange.cs" />
+    <None Include="Օրթոնորմավորել Բազիսը\BasisNormalize.cs" />
   </ItemGroup>
 
 
