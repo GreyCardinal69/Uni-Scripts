@@ -1,4 +1,7 @@
 ﻿using System.Text;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Uni_Scripts.Օրթոնորմավորել_Բազիսը
 {
@@ -9,20 +12,23 @@ namespace Uni_Scripts.Օրթոնորմավորել_Բազիսը
             // if the basis is in bad order, the order will be changed.
             double[][] xVectors = new double[][]
             {
-            new double[] {0,0,0,1},
-            new double[] {0,0,2,-4},
-            new double[] {0,-3,3,-2},
-            new double[] {2,-4,0,2},
+                new double[] {1,0,0,0},
+                new double[] {0,0,0,-2},
+                new double[] {-3,2,0,-3},
+                new double[] {0,-4,-4,3},
             };
 
             bool dependent = AreVectorsDependent( xVectors );
 
             if ( dependent )
             {
-                Console.WriteLine( "Some Xn and Xm are dependent, consider changing one of them." );
+                Console.WriteLine( "These Xn and Xm vectors are dependent, the latter was changed" );
+                ModifyDependentArrays( xVectors );
             }
             else
+            {
                 Console.WriteLine( "The vectors are independent." );
+            }
 
             double[][] reorderedVectors = ReorderBasis( xVectors );
 
@@ -150,15 +156,15 @@ namespace Uni_Scripts.Օրթոնորմավորել_Բազիսը
                 }
             }
 
-            double[][]? reorderedBasis = new double[basis.Length][];
+            double[][] reorderedBasis = new double[basis.Length][];
             reorderedBasis[0] = basis[minNonZeroIndex];
-            reorderedBasis[minNonZeroIndex] = basis[0];
 
-            for ( int i = 1, j = 1; i < basis.Length; i++ )
+            int j = 1;
+            for ( int i = 0; i < basis.Length; i++ )
             {
                 if ( i != minNonZeroIndex )
                 {
-                    reorderedBasis[j++] = basis[i];
+                    reorderedBasis[j++] = basis[i].ToArray(); // Copy the array over
                 }
             }
 
@@ -346,6 +352,88 @@ namespace Uni_Scripts.Օրթոնորմավորել_Բազիսը
                 a = temp;
             }
             return a;
+        }
+
+        static bool ModifyDependentArrays( double[][] arrays )
+        {
+            bool modified = false;
+
+            for ( int i = 0; i < arrays.Length; i++ )
+            {
+                for ( int j = i + 1; j < arrays.Length; j++ )
+                {
+                    double[] array1 = arrays[i];
+                    double[] array2 = arrays[j];
+
+                    double A = FindA( array1, array2 );
+
+                    if ( A != -1 )
+                    {
+                        PrintArray( array1 );
+                        PrintArray( array2 );
+                        Console.WriteLine();
+
+                        ModifyArray( array2 );
+                        modified = true;
+
+                        break;
+                    }
+                }
+            }
+
+            return modified;
+        }
+
+        static double FindA( double[] x, double[] y )
+        {
+            if ( x.Length != y.Length )
+                throw new ArgumentException( "Arrays must have the same length" );
+
+            for ( int i = 0; i < x.Length; i++ )
+            {
+                if ( x[i] != 0 && y[i] % x[i] == 0 )
+                {
+                    double A = y[i] / x[i];
+                    bool isValid = true;
+                    for ( int j = 0; j < x.Length; j++ )
+                    {
+                        if ( x[j] * A != y[j] )
+                        {
+                            isValid = false;
+                            break;
+                        }
+                    }
+                    if ( isValid )
+                        return A;
+                }
+            }
+            return -1;
+        }
+
+        static void ModifyArray( double[] array )
+        {
+            for ( int i = 0; i < array.Length; i++ )
+            {
+                if ( array[i] == 0 )
+                {
+                    array[i] = 1;
+                    return;
+                }
+            }
+        }
+
+        static void PrintArray( double[] array )
+        {
+            Console.Write( "[" );
+            for ( int i = 0; i < array.Length; i++ )
+            {
+                Console.Write( array[i] );
+                if ( i < array.Length - 1 )
+                {
+                    Console.Write( ", " );
+                }
+            }
+            Console.WriteLine( "]" );
         }
     }
 }
