@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="LU Ax = b\LU.cs" />
     <Compile Remove="Smith Normal Form\SmithNormalForm.cs" />
     <Compile Remove="Մատրիցի Հակադարձ Գաուսի\MatrixInverseGaussian.cs" />
     <Compile Remove="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
@@ -18,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="LU Ax = b\LU.cs" />
     <None Include="Smith Normal Form\SmithNormalForm.cs" />
     <None Include="Մատրիցի Հակադարձ Գաուսի\MatrixInverseGaussian.cs" />
     <None Include="Չինական Թեորեմ Դետերմինանտ\ChineseRemainder.cs" />
